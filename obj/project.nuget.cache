@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dlvK4NVIgD1/FG8DkBUkfgQ8Px/0DdO8j95sdv+rcT0km9H92DNP/ddWPu20wIeOZCDWoex7bpWfCFq6DzkOhg==",
+  "dgSpecHash": "oQ/I8PVoQh3sXGi8XXskNOLJ+XYimypl7zEC/u/TFIPJAI9QiChTdkUnLBYmOblsaxbDT/cAqc6tBce2YX1mmA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Hp\\Desktop\\TELEGRAMPROBLEMS\\CRM Management\\CRM Management.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Hp\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
   "logs": []
 }

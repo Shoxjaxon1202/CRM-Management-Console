@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spectre.Console;
 
 abstract class Person
 {
@@ -30,7 +31,7 @@ interface ISearchable
 
 class Customer : Person, ISalable, IPayment
 {
-    public List<decimal> Sales { get; set; } = new List<decimal>(); //private
+    public List<decimal> Sales { get; set; } = new List<decimal>();
 
     public Customer(string firstName, string lastName, string email)
     {
@@ -41,11 +42,16 @@ class Customer : Person, ISalable, IPayment
 
     public override void DisplayInfo()
     {
-        foreach(var i in Sales)
-        {
-            Console.WriteLine($"Customer: {FirstName} {LastName}, Email: {Email}, Sales: {i}");
-        }
-        System.Console.WriteLine();
+        var table = new Table();
+        table.AddColumn("First Name");
+        table.AddColumn("Last Name");
+        table.AddColumn("Email");
+        table.AddColumn("Total Sales");
+        table.AddColumn("Total Payments");
+
+        table.AddRow(FirstName, LastName, Email, Sales.Count.ToString(), GetTotalPayments().ToString("C"));
+
+        AnsiConsole.Write(table);
     }
 
     void ISalable.AddSale(decimal saleAmount)
@@ -88,7 +94,14 @@ class Employee : Person
 
     public override void DisplayInfo()
     {
-        Console.WriteLine($"Employee: {FirstName} {LastName}, Email: {Email}, Salary: {Salary:C}");
+        var table = new Table();
+        table.AddColumn("First Name");
+        table.AddColumn("Last Name");
+        table.AddColumn("Email");
+        table.AddColumn("Salary");
+
+        table.AddRow(FirstName, LastName, Email, Salary.ToString("C"));
+        AnsiConsole.Write(table);
     }
 
     public override string ToString()
@@ -124,7 +137,7 @@ class CRMSystem : ISearchable
     {
         if (customers.Count == 0)
         {
-            Console.WriteLine("No customers found.");
+            AnsiConsole.MarkupLine("[red]No customers found.[/]");
         }
         else
         {
@@ -139,7 +152,7 @@ class CRMSystem : ISearchable
     {
         if (employees.Count == 0)
         {
-            Console.WriteLine("No employees found.");
+            AnsiConsole.MarkupLine("[red]No employees found.[/]");
         }
         else
         {
@@ -152,16 +165,18 @@ class CRMSystem : ISearchable
 
     public void SearchCustomerByName(string name)
     {
-        var foundCustomers = customers.FindAll(c => c.FirstName.Contains(name, StringComparison.OrdinalIgnoreCase) || c.Email.Contains(name , StringComparison.OrdinalIgnoreCase) || c.LastName.Contains(name, StringComparison.OrdinalIgnoreCase));
+        var foundCustomers = customers.FindAll(c => c.FirstName.Contains(name, StringComparison.OrdinalIgnoreCase) ||
+                                                    c.LastName.Contains(name, StringComparison.OrdinalIgnoreCase) ||
+                                                    c.Email.Contains(name, StringComparison.OrdinalIgnoreCase));
         if (foundCustomers.Count == 0)
         {
-            Console.WriteLine("No customers found.");
+            AnsiConsole.MarkupLine("[red]No customers found.[/]");
         }
         else
         {
             foreach (var customer in foundCustomers)
             {
-                Console.WriteLine(customer);
+                AnsiConsole.WriteLine(customer.ToString());
             }
         }
     }
@@ -187,24 +202,29 @@ class Program
 {
     static void Main(string[] args)
     {
+        AnsiConsole.Write(
+        new FigletText("CRM Management")
+        .Centered()
+        .Color(Color.Green)
+        );
+        Console.WriteLine();
+
         CRMSystem crm = new();
 
         while (true)
         {
             try
             {
-                Console.WriteLine("1. Add Customer");
-                Console.WriteLine("2. Add Employee");
-                Console.WriteLine("3. Display All Customers");
-                Console.WriteLine("4. Display All Employees");
-                Console.WriteLine("5. Search Customer by Name");
-                Console.WriteLine("0. Exit");
-                Console.Write("Choose an option: ");
-                string choice = Console.ReadLine()!;
+                AnsiConsole.Write(new Markup("[bold yellow]Choose an option:[/]"));
+                AnsiConsole.WriteLine();
+                var choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("Select an [green]option[/]:")
+                        .AddChoices("Add Customer", "Add Employee", "Display All Customers", "Display All Employees", "Search Customer by Name or Last name or Email", "Exit"));
 
                 switch (choice)
                 {
-                    case "1":
+                    case "Add Customer":
                         string firstName = GetValidInput("Enter first name: ");
                         string lastName = GetValidInput("Enter last name: ");
                         string email = GetValidEmail("Enter email: ", crm);
@@ -215,42 +235,42 @@ class Program
                         decimal paymentAmount = GetValidDecimalInput("Enter payment amount: ");
                         customer.AddPayment(paymentAmount);
 
-                        Console.WriteLine("Customer added successfully!");
+                        AnsiConsole.MarkupLine("[green]Customer added successfully![/]");
                         Console.WriteLine();
                         break;
-                    case "2":
+                    case "Add Employee":
                         firstName = GetValidInput("Enter first name: ");
                         lastName = GetValidInput("Enter last name: ");
                         email = GetValidEmail("Enter email: ", crm);
                         decimal salary = GetValidDecimalInput("Enter salary: ");
                         crm.AddEmployee(new Employee(firstName, lastName, email, salary));
-                        Console.WriteLine("Employee added successfully!");
+                        AnsiConsole.MarkupLine("[green]Employee added successfully![/]");
                         Console.WriteLine();
                         break;
-                    case "3":
+                    case "Display All Customers":
                         crm.DisplayAllCustomers();
                         break;
-                    case "4":
+                    case "Display All Employees":
                         crm.DisplayAllEmployees();
                         break;
-                    case "5":
+                    case "Search Customer by Name":
                         string query = GetValidInput("Enter the first name, last name, or email to search: ");
                         crm.SearchCustomerByName(query);
                         break;
-                    case "0":
+                    case "Exit":
                         return;
                     default:
-                        Console.WriteLine("Invalid option. Please try again.");
+                        AnsiConsole.MarkupLine("[red]Invalid option. Please try again.[/]");
                         break;
                 }
             }
             catch (DuplicateEmailException ex)
             {
-                Console.WriteLine(ex.Message);
+                AnsiConsole.MarkupLine($"[red]{ex.Message}[/]");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred: " + ex.Message);
+                AnsiConsole.MarkupLine($"[red]An error occurred: {ex.Message}[/]");
             }
         }
     }
@@ -260,11 +280,11 @@ class Program
         string input;
         do
         {
-            Console.Write(prompt);
+            AnsiConsole.Write(new Markup($"[bold]{prompt}[/]"));
             input = Console.ReadLine()!;
             if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("Input cannot be empty. Please try again.");
+                AnsiConsole.MarkupLine("[red]Input cannot be empty. Please try again.[/]");
             }
         } while (string.IsNullOrWhiteSpace(input));
         return input;
@@ -275,11 +295,11 @@ class Program
         string email;
         do
         {
-            Console.Write(prompt);
+            AnsiConsole.Write(new Markup($"[bold]{prompt}[/]"));
             email = Console.ReadLine()!;
             if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || crm.IsEmailDuplicate(email))
             {
-                Console.WriteLine("Invalid or duplicate email. Please enter a valid, unique email.");
+                AnsiConsole.MarkupLine("[red]Invalid or duplicate email. Please enter a valid, unique email.[/]");
                 email = "";
             }
         } while (string.IsNullOrWhiteSpace(email));
@@ -291,10 +311,10 @@ class Program
         decimal result;
         do
         {
-            Console.Write(prompt);
+            AnsiConsole.Write(new Markup($"[bold]{prompt}[/]"));
             if (!decimal.TryParse(Console.ReadLine(), out result) || result <= 0)
             {
-                Console.WriteLine("Invalid amount. Please enter a valid number greater than 0.");
+                AnsiConsole.MarkupLine("[red]Invalid amount. Please enter a valid number greater than 0.[/]");
             }
         } while (result <= 0);
         return result;
