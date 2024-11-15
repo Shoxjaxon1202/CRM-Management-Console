@@ -1,0 +1,14 @@
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\CRM Management.exe
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\CRM Management.deps.json
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\CRM Management.runtimeconfig.json
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\CRM Management.dll
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\CRM Management.pdb
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.AssemblyInfoInputs.cache
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.AssemblyInfo.cs
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.csproj.CoreCompileInputs.cache
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.dll
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\refint\CRM Management.dll
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.pdb
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.genruntimeconfig.cache
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\ref\CRM Management.dll
