@@ -12,3 +12,7 @@ C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\refint\CRM 
 C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.pdb
 C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.genruntimeconfig.cache
 C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\ref\CRM Management.dll
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\bin\Debug\net8.0\Spectre.Console.dll
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.csproj.AssemblyReference.cache
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.sourcelink.json
+C:\Users\Hp\Desktop\TELEGRAMPROBLEMS\CRM Management\obj\Debug\net8.0\CRM Management.csproj.CopyComplete
